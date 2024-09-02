@@ -13,6 +13,7 @@ import (
 
 	"github.com/konvera/geth-sev/constellation/atls"
 	azure_tdx "github.com/konvera/geth-sev/constellation/attestation/azure/tdx"
+	cvm_tdx "github.com/konvera/geth-sev/constellation/attestation/azure/tdx"
 
 	"cvm-reverse-proxy/common"
 	"cvm-reverse-proxy/proxy"
@@ -84,7 +85,7 @@ func server_side_tls_termination(cCtx *cli.Context) error {
 	case "azure-tdx":
 		issuer = azure_tdx.NewIssuer(log)
 	case "baremetal-tdx":
-		issuer = NewIssuer(log)
+		issuer = cvm_tdx.NewIssuer(log)
 	default:
 		log.With("attestation-type", attestationType).Error("invalid attestation-type passed, must be one of [azure-tdx, baremetal-tdx]")
 		return errors.New("invalid attestation-type passed in")
